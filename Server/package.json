@@ -1,0 +1,27 @@
+{
+  "name": "e-commerce-api",
+  "version": "1.0.0",
+  "description": "rest api for e-commerce application",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon server.js"
+  },
+  "author": "shubham singh",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "mssql": "^4.1.0",
+    "nodemailer": "^4.6.7",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "nodemon": "^1.17.5",
+    "webpack": "^4.15.1"
+  }
+}
