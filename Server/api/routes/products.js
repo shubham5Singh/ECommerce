@@ -188,9 +188,7 @@ router.delete('/:productId', (req, res) => {
 			.input('ProductId', sql.VarChar, productId)
 			.execute('sp_DeleteProduct', (err, result) => {
 				sql.close();
-				console.log(result)
 				if (result.returnValue === 0) {
-
 					res.status(200).json({
 						message: 'success'
 					});

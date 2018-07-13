@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "eslint": "^5.1.0",
+    "mockery": "^2.1.0",
     "nodemon": "^1.17.5",
     "webpack": "^4.15.1"
   }
