@@ -3,66 +3,53 @@ const router = express.Router();
 const sql = require('mssql');
 const config = require('../../sqlconfig');
 const nodemailer = require('nodemailer');
+const admin = require('../repositories/admin');
 
 router.post('/login', (req, res) => {
-	const credential = {
-		email: req.body.email,
-		password: req.body.password
-	};
-	sql.connect(config).then(() => {
-		return sql.query`select * from Admin where Email = ${credential.email} and Password =${credential.password}`;
-	}).then(result => {
-		sql.close();
-		if (result.rowsAffected > 0) {
+	admin.logIn(req, function (error, response) {
+		if (response != null) {
 			res.status(200).json({
-				message: 'login successful',
-				status: result.recordset[0].Status
+				message: 'Login Successful',
+				status: response
 			});
 		}
 		else {
-			res.status(404).json({
-				message: 'Invalid user'
-			});
+			if (error == null) {
+				res.status(400).json({
+					message: 'Invalid User'
+				});
+			}
+			else {
+				res.status(500).json({
+					error: error
+				});
+			}
 		}
-	}).catch(err => {
-		sql.close();
-		res.status(500).json({
-			message: 'something is not right',
-			error: err
-		});
-	});
-
-	sql.on('error', err => {
-		sql.close();
-		res.status(500).json({
-			error: err
-		});
 	});
 });
 
 router.patch('/updatePassword/:email', (req, res) => {
 	const email = req.params.email;
 	const password = req.body.password;
-	sql.connect(config).then(() => {
-		return sql.query`UPDATE Admin SET Password = ${password} WHERE Email =${email}`;
-	}).then(result => {
-		sql.close();
-		if (result.rowsAffected > 0) {
+	admin.updatePassword(email, password, function (error, response) {
+		if (response != null) {
 			res.status(200).json({
 				message: 'updated password'
 			});
 		}
 		else {
-			res.status(404).json({
-				message: 'NOt found data to update'
-			});
+			if (error == null) {
+				res.status(404).json({
+					message: 'NOt found data to update'
+				});
+			}
+			else {
+				res.status(500).json({
+					message: 'something is not right',
+					error: err
+				});
+			}
 		}
-	}).catch(err => {
-		sql.close();
-		res.status(500).json({
-			message: 'something is not right',
-			error: err
-		});
 	});
 });
 
@@ -86,8 +73,8 @@ router.get('/forgetPassword/:email', (req, res) => {
 	transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
 			return res.status(500).json({
-				message:'cannot send mail',
-				error:error
+				message: 'cannot send mail',
+				error: error
 			});
 		}
 		else {

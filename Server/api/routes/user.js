@@ -3,7 +3,7 @@ const router = express.Router();
 const user = require('../repositories/user');
 
 router.get('/', (req, res) => {
-	user.getUser(req, function (error, response) {
+	user.getUser(function (error, response) {
 		if (response != null) {
 			res.status(200).json({
 				data: response

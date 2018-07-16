@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-const userRoutes = require('./api/routes/user').default;
+const userRoutes = require('./api/routes/user');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/order');
 const admminRoutes = require('./api/routes/admin');

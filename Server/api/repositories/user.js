@@ -2,7 +2,7 @@ const sql = require('mssql');
 const uuidv4 = require('uuid/v4');
 const config = require('../../sqlconfig');
 
-exports.getUser = function (req, response) {
+exports.getUser = function (response) {
 	sql.connect(config).then(() => {
 		return sql.query`select * from Customers`;
 	}).then(result => {
