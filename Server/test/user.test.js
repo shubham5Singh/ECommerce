@@ -3,12 +3,15 @@ const chai = require('chai');
 const expect = require('chai').expect;
 chai.use(require('chai-http'));
 let sinon = require('sinon');
+
 const app = require('../app');
 const user = require('../api/repositories/user');
+const userObject = require('./user');
+
 let getUserStub = sinon.stub(user, 'getUser');
 let postUserStub = sinon.stub(user, 'postUser');
 let getUserByIdStub = sinon.stub(user, 'getUserById');
-const userObject = require('./user');
+
 
 describe('GET /', function () {
 	it('should respond with status 200', (done) => {
@@ -17,6 +20,8 @@ describe('GET /', function () {
 			.get('/users')
 			.end(function (err, res) {
 				expect(res).to.have.status(200);
+				expect(typeof res).to.equal('object');
+				expect(err).to.equal(null);
 				done();
 			});
 	});
@@ -27,6 +32,8 @@ describe('GET /', function () {
 			.get('/users')
 			.end(function (err, res) {
 				expect(res).to.have.status(404);
+				expect(res).to.equal(null);
+				expect(err).to.equal(null);
 				done();
 			});
 	});

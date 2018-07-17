@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
-const config = require('../../sqlconfig');
 const nodemailer = require('nodemailer');
 const admin = require('../repositories/admin');
 
@@ -40,7 +38,7 @@ router.patch('/updatePassword/:email', (req, res) => {
 		else {
 			if (error == null) {
 				res.status(404).json({
-					message: 'NOt found data to update'
+					message: 'Not found data to update'
 				});
 			}
 			else {
@@ -59,7 +57,7 @@ router.get('/forgetPassword/:email', (req, res) => {
 		service: 'Outlook',
 		auth: {
 			user: 'shubham109singh@Outlook.com',
-			pass: '*********'
+			pass: '*/******87**/**/*@'
 		}
 	});
 
