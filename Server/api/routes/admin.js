@@ -44,7 +44,7 @@ router.patch('/updatePassword/:email', (req, res) => {
 			else {
 				res.status(500).json({
 					message: 'something is not right',
-					error: err
+					error: error
 				});
 			}
 		}

@@ -2,30 +2,30 @@ const sql = require('mssql');
 const uuidv4 = require('uuid/v4');
 const config = require('../../sqlconfig');
 
-exports.getAllProduct = function(response){
-    sql.connect(config).then(() => {
+exports.getAllProduct = function (response) {
+	sql.connect(config).then(() => {
 		return sql.query`select * from Product`;
 	}).then(result => {
 		sql.close();
 		if (result.rowsAffected > 0) {
-            response(null,result.recordset);
+			response(null, result.recordset);
 		}
 		else {
-            response(null,null);
+			response(null, null);
 		}
 	}).catch(err => {
-        sql.close();
-        response(err,null);
+		sql.close();
+		response(err, null);
 	});
 
 	sql.on('error', err => {
-        sql.close();
-        response(err,null);
+		sql.close();
+		response(err, null);
 	});
-}
+};
 
-exports.createProduct = function(req,response){
-    const product = {
+exports.createProduct = function (req, response) {
+	const product = {
 		ProductId: uuidv4(),
 		ProductName: req.body.ProductName,
 		ProductDescription: req.body.ProductDescription,
@@ -40,10 +40,7 @@ exports.createProduct = function(req,response){
 
 	sql.connect(config, err => {
 		if (err) {
-            response(err,null);
-			res.status(500).json({
-				error: err
-			});
+			response(err, null);
 		}
 		new sql.Request()
 			.input('ProductId', sql.VarChar, product.ProductId)
@@ -59,47 +56,42 @@ exports.createProduct = function(req,response){
 			.execute('sp_InsertProduct', (err, result) => {
 				sql.close();
 				if (result.returnValue === 0) {
-                    response(null,'success');       
+					response(null, 'success');
 				}
 				else {
-                    response(new Error(500),null);
-					res.status(500).json({
-						message: 'problem in executing sp'
-					});
+					response(new Error(500), null);
 				}
 			});
 	});
 	sql.on('error', err => {
-        response(err,null);
-		res.status(500).json({
-			err: err
-		});
+		response(err, null);
 	});
-}
+};
 
-exports.getProductDetail = function(id,response){
-    sql.connect(config).then(() => {
+exports.getProductDetail = function (id, response) {
+	sql.connect(config).then(() => {
 		return sql.query`select * from Product where ProductId = ${id}`;
 	}).then(result => {
 		sql.close();
 		if (result.rowsAffected > 0) {
-            response(null,result.recordset);
+			response(null, result.recordset);
 		}
 		else {
-            response(null,null);
+			response(null, null);
 		}
 	}).catch(err => {
-        sql.close();
-        response(err,null);
+		sql.close();
+		response(err, null);
 	});
 
 	sql.on('error', err => {
-        sql.close();
+		sql.close();
+		response(err,null);
 	});
-}
+};
 
-exports.updateProduct = function(productId,req,response){
-    const product = {
+exports.updateProduct = function (productId, req, response) {
+	const product = {
 		ProductName: req.body.ProductName,
 		ProductDescription: req.body.ProductDescription,
 		CategoryId: req.body.CategoryId,
@@ -112,7 +104,7 @@ exports.updateProduct = function(productId,req,response){
 	};
 	sql.connect(config, err => {
 		if (err) {
-            response(err,null);
+			response(err, null);
 		}
 		new sql.Request()
 			.input('ProductId', sql.VarChar, productId)
@@ -128,36 +120,36 @@ exports.updateProduct = function(productId,req,response){
 			.execute('sp_UpdateProduct', (err, result) => {
 				sql.close();
 				if (err) {
-                    response(err,null);
+					response(err, null);
 				}
 				else {
-                    response(null,'success');
+					response(null, 'success');
 				}
 			});
 
 	});
-}
+};
 
-exports.deleteProduct = function(productId,response){
-    sql.connect(config, err => {
+exports.deleteProduct = function (productId, response) {
+	sql.connect(config, err => {
 		if (err) {
-            response(err,null);
+			response(err, null);
 		}
 		new sql.Request()
 			.input('ProductId', sql.VarChar, productId)
 			.execute('sp_DeleteProduct', (err, result) => {
 				sql.close();
 				if (result.returnValue === 0) {
-                    response(null,'success');
-                }
+					response(null, 'success');
+				}
 				else {
-                    response(new Error(500),null)
+					response(new Error(500), null);
 				}
 			});
 
 	});
 	sql.on('error', err => {
-        sql.close();
-        response(err,null);
+		sql.close();
+		response(err, null);
 	});
-}
+};
