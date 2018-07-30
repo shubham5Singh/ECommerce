@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
 		}
 		else {
 			if (error == null) {
-				res.status(400).json({
+				res.status(200).json({
 					message: 'Invalid User'
 				});
 			}

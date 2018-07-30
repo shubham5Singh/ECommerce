@@ -2,6 +2,7 @@ const sql = require('mssql');
 const config = require('../../sqlconfig');
 
 exports.logIn = function (req, response) {
+
 	const credential = {
 		email: req.body.email,
 		password: req.body.password
