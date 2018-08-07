@@ -1,6 +1,7 @@
+
 import axios from 'axios';
 
-export function login(_email, _password) {
+export function login(_email, _password,history) {
   return (dispatch) => {
     axios.post('http://localhost:8080/admin/login', {
       email: _email,
@@ -8,10 +9,7 @@ export function login(_email, _password) {
     }).then((response) => {
       if (response.status === 200) {
         if (response.data.message === 'Login Successful') {
-          dispatch({
-            type: 'LOG_IN',
-            payload: true
-          });
+          history.push('/Home');
         }
         else if (response.data.message === 'Invalid User') {
           dispatch({
@@ -22,7 +20,7 @@ export function login(_email, _password) {
       }
     }).catch((error) => {
       //
-      console.log('error');
+      console.log(error);
     });
   }
 }
