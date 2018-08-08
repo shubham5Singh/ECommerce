@@ -9,6 +9,10 @@ export function login(_email, _password,history) {
     }).then((response) => {
       if (response.status === 200) {
         if (response.data.message === 'Login Successful') {
+          dispatch({
+            type: 'LOG_IN',
+            payload: true
+          });
           history.push('/Home');
         }
         else if (response.data.message === 'Invalid User') {

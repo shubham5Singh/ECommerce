@@ -3,6 +3,7 @@ const uuidv4 = require('uuid/v4');
 const config = require('../../sqlconfig');
 
 exports.getAllProduct = function (response) {
+	sql.close();
 	sql.connect(config).then(() => {
 		return sql.query`select * from Product`;
 	}).then(result => {

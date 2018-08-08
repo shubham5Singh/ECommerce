@@ -14,47 +14,57 @@ class Login extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
-    this.state = { signInClick: false};
+    this.state = { signInClick: false };
   }
 
   handleEmailChange(e) {
     this.props.setEmailValue(e.target.value);
     this.setState({
-      signInClick:false
+      signInClick: false
     });
   }
 
   handlePasswordChange(e) {
     this.props.setPassword(e.target.value);
     this.setState({
-      signInClick:false
+      signInClick: false
     });
   }
 
   handleLogIn() {
-    this.props.loginMethod(this.props.email, this.props.password,this.props.history);
+    this.props.loginMethod(this.props.login.email, this.props.login.password, this.props.history);
     this.setState({
-      signInClick:true
+      signInClick: true
     });
   }
   render() {
     return (
-      <div className="grid-container login">
-        <div className="grid-x grid-margin-x">
-          <div className="cell small-6 large-4 large-offset-4 small-offset-2"><h1>Log In</h1></div>
-        </div>
-        <div className="grid-x grid-margin-x">
-          <div className="cell small-6 large-4 large-offset-4 small-offset-2"> <Input placeholder='Email' type='email' change={this.handleEmailChange} /></div>
-        </div>
-        <div className="grid-x grid-margin-x">
-          <div className="cell small-6 large-4 large-offset-4 small-offset-2"><Input placeholder='Password' type='password' change={this.handlePasswordChange} /></div>
-        </div>
-        <div className="grid-x grid-margin-x login__error">
-         <div className="cell small-6 large-4 large-offset-4 small-offset-2 login__error--message">{this.state.signInClick ? (this.props.islogin ? '' : '**Email or Password is wrong'):'' }</div>
-        </div>
-        <div className="grid-x grid-margin-x">
-          <div className="cell large-offset-4 small-offset-2 shrink"> <Button name='Sign In' click={this.handleLogIn} /></div>
-          <div className="cell shrink"> <Button name='Sign Up ' /></div>
+      <div className="container login">
+        <div className="row vertical-offset-100">
+          <div className="col-md-4 col-md-offset-4">
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <h3 className="panel-title">Please Log in</h3>
+              </div>
+              <div className="panel-body">
+                <form acceptCharset="UTF-8" role="form">
+                  <fieldset>
+                    <div className="form-group">
+                      <Input className="form-control" placeholder="E-mail" change={this.handleEmailChange} type="email" />
+                    </div>
+                    <div className="form-group">
+                      <Input className="form-control" placeholder="Password" type="password" change={this.handlePasswordChange} />
+                    </div>
+                    <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong'):'' }</div>
+                    <div className="row">
+                    <div className="col-lg-2 col-sm-4"> <Button name='Sign In' click={this.handleLogIn} /></div>
+                    <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' /></div>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -63,16 +73,14 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.email,
-    password: state.password,
-    islogin: state.isLogin
+    login: state.login
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginMethod: (email, password,history) => {
-      dispatch(login(email, password,history));
+    loginMethod: (email, password, history) => {
+      dispatch(login(email, password, history));
     },
 
     setEmailValue: (email) => {

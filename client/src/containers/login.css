@@ -1,9 +1,6 @@
 .login{
-  margin: 20%;
-  margin-top:10%;
-  background-color:rgb(228, 217, 194);
+  margin:10% 25% 10% 25%;
 }
-
 .login__error--message{
   color:red;
 }
