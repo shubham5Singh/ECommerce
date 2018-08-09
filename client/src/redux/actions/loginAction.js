@@ -29,6 +29,15 @@ export function login(_email, _password,history) {
   }
 }
 
+export function logOut(history){
+  return (dispatch) =>{
+    dispatch({
+      type:'LOG_OUT',
+      payload:false
+    });
+    history.push('/Home');
+  }
+}
 
 export function setEmail(email) {
   return (dispatch) => {

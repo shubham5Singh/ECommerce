@@ -22,6 +22,11 @@ const loginReducer = (state = {
         isLogin: action.payload
       }
       break;
+    case 'LOG_OUT':
+    state ={
+      ...state,
+      isLogin: action.payload
+    }
     default:
       return state;
   }

@@ -22,9 +22,9 @@ export const Header = (props) => {
               <a className="nav-link" href="#">Products</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Cart
+              <Link className="nav-link" to="/Cart">Cart
               <strong><sup>{props.items}</sup></strong>
-              </a>
+              </Link>
             </li>
           </ul>
           {props.isLogin ?
@@ -36,7 +36,7 @@ export const Header = (props) => {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#">Orders</a>
                   <a className="dropdown-item" href="#">Profile</a>
-                  <a className="dropdown-item" href="#">Log Out</a>
+                  <a className="dropdown-item" href="#" onClick={props.handleLogout}>Log Out</a>
                 </div>
               </li>
             </ul> : <Link to="/">Log In</Link>}
