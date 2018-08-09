@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToCart, getProducts } from '../redux/actions/cartAction';
+import { Button } from '../components/button';
 class Cart extends React.Component {
   constructor(props) {
     super(props);
@@ -21,11 +22,17 @@ class Cart extends React.Component {
                   <div className="row">
                     {product.ProductName}
                   </div>
-                  <div className="row description">
-                    <p>{product.ProductDescription}</p>
+                  <div className="row">
+                    {product.ProductDescription}
                   </div>
-                  <div className="row souce">
-                    <p>Price: {product.UnitPrice}</p>
+                  <div className="row">
+                    Price: {product.UnitPrice}
+                  </div>
+                  <div className="row">
+                    Quantity: 1
+                  </div>
+                  <div className="row">
+                    <Button name="Remove From Cart"/>
                   </div>
                 </div>
               </div>
