@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const Header = (props) => {
   return (
     <div className="container-fluid">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-md navbar-light bg-light">
         <a className="navbar-brand" href="#">E Commerce</a>
 
         <form className="form-inline my-2 my-lg-0">

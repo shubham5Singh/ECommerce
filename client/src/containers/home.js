@@ -28,17 +28,16 @@ class Home extends React.Component {
     this.setState({
       searchProduct: []
     });
-    console.log('before if', this.state.searchProduct);
     this.props.cart.products.filter((product) => {
       if (product.ProductName.toLowerCase().includes((e.target.value).toLowerCase())) {
         this.setState({
           searchProduct: [...this.state.searchProduct, product]
         });
+        console.log(this.state.searchProduct);
       }
-      console.log('after', this.state.searchProduct);
     })
   }
-
+ 
   handleLogout() {
     this.props.logout(this.props.history);
   }

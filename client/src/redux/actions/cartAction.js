@@ -6,10 +6,15 @@ export function addToCart(product) {
       type: 'ADD_TO_CART',
       payload: product
     });
-      dispatch({
-        type: 'REMOVE_ADDED_PRODUCT',
-        payload: product
-      });
+  }
+}
+
+export function removeItemCart(product){
+  return (dispatch) =>{
+    dispatch({
+      type: 'REMOVE_CART_ITEM',
+      payload: product
+    });
   }
 }
 

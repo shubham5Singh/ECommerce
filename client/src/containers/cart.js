@@ -1,20 +1,35 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addToCart, getProducts } from '../redux/actions/cartAction';
+import { removeItemCart } from '../redux/actions/cartAction';
 import { Button } from '../components/button';
+import { Link } from 'react-router-dom';
+
+import './cart.css';
+
 class Cart extends React.Component {
   constructor(props) {
     super(props);
+    this.handleRemoveItemCart = this.handleRemoveItemCart.bind(this);
+    const item = false;
   }
 
+  handleRemoveItemCart(product) {
+    this.props.removeItemCart(product)
+  }
   render() {
+    if (this.props.cart.cartItems.length > 0) {
+      this.item = true;
+    }
     return (
       <div className="container">
+        <div className="row">
+          <h1>Cart Items</h1>
+        </div>
         {this.props.cart.cartItems.map((product, index) => {
-          if (product) {
+          if (this.props.cart.cartItems.length > 0) {
             return (
-              	<div className="row" key={index}>
+              <div className="row cart" key={index}>
                 <div className="col-sm-4">
                   <img className="img-thumbnail" src={window.location.origin + '/images/Penguins.jpg'} alt="Penguins" />
                 </div>
@@ -32,13 +47,28 @@ class Cart extends React.Component {
                     Quantity: 1
                   </div>
                   <div className="row">
-                    <Button name="Remove From Cart"/>
+                    <Button
+                      name="Remove From Cart"
+                      click={() => this.handleRemoveItemCart(product)}
+                    />
                   </div>
                 </div>
               </div>
             );
           }
-        })}
+        }
+        )}
+        {this.item ? 
+         <div className="row">
+         <div className="col-sm-4 col-md-4">
+           <Link to="/Home">Back</Link>
+         </div>
+         <div className="offset-4 col-sm-4 col-md-4">
+           <Button name="Checkout" />
+         </div>
+       </div> :
+      <div>No item is added in the Cart Yet</div>}
+       
       </div>
     );
   }
@@ -51,8 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (product) => {
-      dispatch(addToCart(product));
+    removeItemCart: (product) => {
+      dispatch(removeItemCart(product));
     },
   };
 };
