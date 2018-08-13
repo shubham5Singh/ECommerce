@@ -48,7 +48,7 @@ class Cart extends React.Component {
                   </div>
                   <div className="row">
                     <Button
-                      name="Remove From Cart"
+                      name="Remove"
                       click={() => this.handleRemoveItemCart(product)}
                     />
                   </div>
@@ -58,17 +58,17 @@ class Cart extends React.Component {
           }
         }
         )}
-        {this.item ? 
-         <div className="row">
-         <div className="col-sm-4 col-md-4">
-           <Link to="/Home">Back</Link>
-         </div>
-         <div className="offset-4 col-sm-4 col-md-4">
-           <Button name="Checkout" />
-         </div>
-       </div> :
-      <div>No item is added in the Cart Yet</div>}
-       
+        {this.item ?
+          <div className="row">
+            <div className="col-sm-4 col-md-4">
+              <Link to="/Home">Back</Link>
+            </div>
+            <div className="offset-4 col-sm-4 col-md-4">
+              <Button name="Checkout" />
+            </div>
+          </div> :
+          <div>No item is added in the Cart Yet</div>}
+
       </div>
     );
   }
