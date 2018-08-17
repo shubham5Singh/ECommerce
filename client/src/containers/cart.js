@@ -11,71 +11,112 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.handleRemoveItemCart = this.handleRemoveItemCart.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleContinueShopping = this.handleContinueShopping.bind(this);
     const item = false;
   }
 
   handleRemoveItemCart(product) {
     this.props.removeItemCart(product)
   }
+
+  handleCheckout() {
+    // if(this.props.login.isLogin){
+    this.props.history.push('/Checkout');
+    // }
+    // else{
+    //   this.props.history.push('/');
+    // }
+
+  }
+
+  handleContinueShopping() {
+    this.props.history.push('/Home');
+  }
   render() {
     if (this.props.cart.cartItems.length > 0) {
       this.item = true;
     }
+    let total = 0;
+    this.props.cart.cartItems.map((product, index) => {
+      total += product.UnitPrice - product.Discount;
+    });
+
     return (
       <div className="container">
         <div className="row">
-          <h1>Cart Items</h1>
-        </div>
-        {this.props.cart.cartItems.map((product, index) => {
-          if (this.props.cart.cartItems.length > 0) {
-            return (
-              <div className="row cart" key={index}>
-                <div className="col-sm-4">
-                  <img className="img-thumbnail" src={window.location.origin + '/images/Penguins.jpg'} alt="Penguins" />
-                </div>
-                <div className="col-sm-8">
+          <div className="col-sm-8">
+            <div className="panel panel-info">
+              <div className="panel-heading">
+                <div className="panel-title">
                   <div className="row">
-                    {product.ProductName}
-                  </div>
-                  <div className="row">
-                    {product.ProductDescription}
-                  </div>
-                  <div className="row">
-                    Price: {product.UnitPrice}
-                  </div>
-                  <div className="row">
-                    Quantity: 1
-                  </div>
-                  <div className="row">
-                    <Button
-                      name="Remove"
-                      click={() => this.handleRemoveItemCart(product)}
-                    />
+                    <div className="col-sm-6">
+                      <h5><span className="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                    </div>
+                    <div className="col-sm-6">
+                      <Button
+                        class="btn btn-primary btn-sm btn-block"
+                        name="&#x21b7; Continue shopping"
+                        click={this.handleContinueShopping} />
+                    </div>
                   </div>
                 </div>
               </div>
-            );
-          }
-        }
-        )}
-        {this.item ?
-          <div className="row">
-            <div className="col-sm-4 col-md-4">
-              <Link to="/Home">Back</Link>
+              <div className="panel-body">
+                {this.props.cart.cartItems.map((product, index) => {
+                  if (this.props.cart.cartItems.length > 0) {
+                    return (
+                      <div className="row" key={index}>
+                        <div className="col-md-2"><img className="img-thumbnail img-responsive" src={window.location.origin +'/images/'+ product.image} alt={product.image} />
+                        </div>
+                        <div className="col-md-4">
+                          <h4 className="product-name"><strong>{product.ProductName}</strong></h4><h4><small>{product.ProductDescription}</small></h4>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="row">
+                            <div className="col-md-4 text-right">
+                              <h6><strong> {product.UnitPrice - product.Discount}&#36; <span className="text-muted">x</span></strong></h6>
+                            </div>
+                            <div className="col-md-4 col-sm-2">
+                              <input type="text" className="form-control input-sm" defaultValue="1" disabled/>
+                            </div>
+                            <div className="col-md-4 col-sm-2">
+                              <Button
+                                name="Remove" class="btn btn-primary"
+                                click={() => this.handleRemoveItemCart(product)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                }
+                )}
+                {this.item ?
+                  <div className="panel-footer">
+                    <div className="row text-center">
+                      <div className="col-md-9">
+                        <h4 className="text-right">Total <strong>{total} &#36;</strong></h4>
+                      </div>
+                      <div className="col-md-3">
+                        <Button class="btn btn-success btn-block" name="Checkout" click={this.handleCheckout} />
+                      </div>
+                    </div>
+                  </div> :
+                  <div>No item is added in the Cart Yet</div>}
+              </div>
             </div>
-            <div className="offset-4 col-sm-4 col-md-4">
-              <Button name="Checkout" />
-            </div>
-          </div> :
-          <div>No item is added in the Cart Yet</div>}
-
+          </div>
+        </div>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    login: state.login
   };
 };
 

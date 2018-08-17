@@ -23,7 +23,9 @@ class Login extends React.Component {
       signInClick: false
     });
   }
-
+  componentDidMount() {
+    console.log('login', this.props.history.location.pathname);
+  }
   handlePasswordChange(e) {
     this.props.setPassword(e.target.value);
     this.setState({
@@ -37,6 +39,7 @@ class Login extends React.Component {
       signInClick: true
     });
   }
+
   render() {
     return (
       <div className="container login">
@@ -47,7 +50,7 @@ class Login extends React.Component {
                 <h3 className="panel-title">Please Log in</h3>
               </div>
               <div className="panel-body">
-                <form acceptCharset="UTF-8" role="form">
+                <form>
                   <fieldset>
                     <div className="form-group">
                       <Input className="form-control" placeholder="E-mail" change={this.handleEmailChange} type="email" />
@@ -55,10 +58,10 @@ class Login extends React.Component {
                     <div className="form-group">
                       <Input className="form-control" placeholder="Password" type="password" change={this.handlePasswordChange} />
                     </div>
-                    <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong'):'' }</div>
+                    <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong') : ''}</div>
                     <div className="row">
-                    <div className="col-lg-2 col-sm-4"> <Button name='Sign In' click={this.handleLogIn} /></div>
-                    <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' /></div>
+                      <div className="col-lg-2 col-sm-4"> <Button type="submit" class="btn btn-primary" name='Sign In' click={this.handleLogIn} /></div>
+                      <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' class="btn btn-primary" /></div>
                     </div>
                   </fieldset>
                 </form>

@@ -36,7 +36,8 @@ exports.createProduct = function (req, response) {
 		Color: req.body.Color,
 		Discount: req.body.Discount,
 		UnitWeight: req.body.UnitWeight,
-		UnitInStock: req.body.UnitInStock
+		UnitInStock: req.body.UnitInStock,
+		image:req.body.image
 	};
 
 	sql.connect(config, err => {
@@ -54,6 +55,7 @@ exports.createProduct = function (req, response) {
 			.input('Discount', sql.Float, product.Discount)
 			.input('UnitWeight', sql.Float, product.UnitWeight)
 			.input('UnitInStock', sql.Int, product.UnitInStock)
+			.input('image', sql.VarChar, product.image)
 			.execute('sp_InsertProduct', (err, result) => {
 				sql.close();
 				if (result.returnValue === 0) {
@@ -70,6 +72,7 @@ exports.createProduct = function (req, response) {
 };
 
 exports.getProductDetail = function (id, response) {
+	sql.close();
 	sql.connect(config).then(() => {
 		return sql.query`select * from Product where ProductId = ${id}`;
 	}).then(result => {
@@ -101,7 +104,8 @@ exports.updateProduct = function (productId, req, response) {
 		Color: req.body.Color,
 		Discount: req.body.Discount,
 		UnitWeight: req.body.UnitWeight,
-		UnitInStock: req.body.UnitInStock
+		UnitInStock: req.body.UnitInStock,
+		image : req.body.image
 	};
 	sql.connect(config, err => {
 		if (err) {
@@ -118,6 +122,7 @@ exports.updateProduct = function (productId, req, response) {
 			.input('Discount', sql.Float, product.Discount)
 			.input('UnitWeight', sql.Float, product.UnitWeight)
 			.input('UnitInStock', sql.Int, product.UnitInStock)
+			.input('image', sql.VarChar, product.image)
 			.execute('sp_UpdateProduct', (err, result) => {
 				sql.close();
 				if (err) {

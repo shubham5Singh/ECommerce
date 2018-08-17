@@ -1,5 +1,6 @@
 const cartReducer = (state = {
   products: [],
+  searchProduct: {},
   cartItems: []
 }, action) => {
   switch (action.type) {
@@ -21,11 +22,15 @@ const cartReducer = (state = {
       const index2 = state.cartItems.indexOf(action.payload);
       state = {
         ...state,
-        cartItems: [...state.cartItems.slice(0, index2), ...state.cartItems.slice(index2 + 1)]
+        cartItems: [...state.cartItems.slice(0, index2), ...state.cartItems.slice(index2 + 1)],
+        products: [...state.products, action.payload]
       }
       break;
-    default:
-      return state;
+    case 'SEARCH_PRODUCT':
+      state = {
+        ...state,
+        searchProduct: action.payload
+      }
       break;
   }
   return state;

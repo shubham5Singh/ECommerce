@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const sql = require('mssql');
 const productRepo = require('../repositories/product');
 
-
+sql.close();
 router.get('/', (req, res) => {
 	productRepo.getAllProduct(function (error, response) {
 		if (response != null) {

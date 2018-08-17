@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+const sql = require('mssql');
 var bodyParser = require('body-parser');
 
 const userRoutes = require('./api/routes/user');
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
 	}
 	next();
 });
-
+sql.close();
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);	
