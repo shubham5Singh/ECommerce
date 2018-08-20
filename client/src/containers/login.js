@@ -51,19 +51,17 @@ class Login extends React.Component {
               </div>
               <div className="panel-body">
                 <form>
-                  <fieldset>
-                    <div className="form-group">
-                      <Input className="form-control" placeholder="E-mail" change={this.handleEmailChange} type="email" />
-                    </div>
-                    <div className="form-group">
-                      <Input className="form-control" placeholder="Password" type="password" change={this.handlePasswordChange} />
-                    </div>
-                    <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong') : ''}</div>
-                    <div className="row">
-                      <div className="col-lg-2 col-sm-4"> <Button type="submit" class="btn btn-primary" name='Sign In' click={this.handleLogIn} /></div>
-                      <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' class="btn btn-primary" /></div>
-                    </div>
-                  </fieldset>
+                  <div className="form-group">
+                    <Input className="form-control" placeholder="E-mail" id="exampleInputEmail1" change={this.handleEmailChange} type="email" />
+                  </div>
+                  <div className="form-group">
+                    <Input className="form-control" placeholder="Password" type="password" change={this.handlePasswordChange} />
+                  </div>
+                  <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong') : ''}</div>
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-4"> <Button type="submit" class="btn btn-primary" name='Sign In' click={this.handleLogIn} /></div>
+                    <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' class="btn btn-primary" /></div>
+                  </div>
                 </form>
               </div>
             </div>

@@ -1,27 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CheckoutComponent } from '../components/checkoutComponent';
+import { getUserDetail } from '../redux/actions/cartAction'
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    if (!this.props.login.isLogin) {
-      // this.props.history.push('/');
-    }
+    // if (!this.props.login.isLogin) {
+    //   // this.props.history.push('/');
+    // }
+    // else{
+    //get the customer id and get the user details
+    this.props.getUserDetail(this.props.login.customerId);
+    // }
   }
+
   render() {
-    let total =0 ;
-    let save=0;
-    this.props.cart.cartItems.map((product, index) => {
-      total = total + product.UnitPrice;
-      save = save + product.Discount;
-    })
     return (
       <CheckoutComponent
-        products={this.props.cart.cartItems}
-        total={total}
-        save= {save}
+      user = {this.props.login.user}
       />
     )
   }
@@ -34,5 +32,13 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserDetail: (customerId) => {
+      dispatch(getUserDetail(customerId));
+    }
+  };
+}
 
-export default connect(mapStateToProps)(Checkout);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

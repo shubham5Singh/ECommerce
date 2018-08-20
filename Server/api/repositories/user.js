@@ -24,6 +24,32 @@ exports.getUser = function (response) {
 	});
 };
 
+exports.logIn = function(req,resposne){
+	const credential = {
+		email: req.body.email,
+		password: req.body.password
+	};
+	sql.connect(config).then(() =>{
+		return sql.query`Select CustomerId from Customers where Email= ${credential.email} and Password= ${credential.password}`;
+	}).then(result =>{
+		sql.close();
+		if(result.rowsAffected>0){
+			resposne(null,result.recordset[0]);
+		}
+		else{
+			resposne(null,null);
+		}
+	}).catch(err =>{
+		sql.close();
+		resposne(err,null);
+	});
+
+	sql.on('error',err =>{
+		sql.close();
+		resposne(err,null);
+	});
+}
+
 exports.postUser = function (req, response) {
 	const user = {
 		CustomerId: uuidv4(),
@@ -57,11 +83,11 @@ exports.postUser = function (req, response) {
 
 exports.getUserById = function (id, response) {
 	sql.connect(config).then(() => {
-		return sql.query`select FirstName,LastName from Customers where CustomerId = ${id}`;
+		return sql.query`select FirstName,LastName,Email,Phone from Customers where CustomerId = ${id}`;
 	}).then(result => {
 		sql.close();
 		if (result.rowsAffected > 0) {
-			response(null, result.recordset);
+			response(null, result.recordset[0]);
 		}
 		else {
 			response(null, null);

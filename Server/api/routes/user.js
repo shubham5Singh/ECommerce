@@ -24,6 +24,29 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.post('/login',(req,res) =>{
+	user.logIn(req,function(error,response){
+		if(response!=null){
+			res.status(200).json({
+				message: 'Login Successful',
+				user: response
+			});
+		}
+		else{
+			if (error == null) {
+				res.status(200).json({
+					message: 'Invalid User'
+				});
+			}
+			else {
+				res.status(500).json({
+					error: error
+				});
+			}
+		}
+	});
+});
+
 router.post('/', (req, res) => {
 	user.postUser(req, function (error, response) {
 		if (response != null) {

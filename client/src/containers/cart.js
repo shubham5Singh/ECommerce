@@ -38,8 +38,10 @@ class Cart extends React.Component {
       this.item = true;
     }
     let total = 0;
+    let save = 0;
     this.props.cart.cartItems.map((product, index) => {
-      total += product.UnitPrice - product.Discount;
+      total +=  product.UnitPrice;
+      save = save + product.Discount;
     });
 
     return (
@@ -67,7 +69,7 @@ class Cart extends React.Component {
                   if (this.props.cart.cartItems.length > 0) {
                     return (
                       <div className="row" key={index}>
-                        <div className="col-md-2"><img className="img-thumbnail img-responsive" src={window.location.origin +'/images/'+ product.image} alt={product.image} />
+                        <div className="col-md-2"><img className="img-thumbnail img-responsive" src={window.location.origin + '/images/' + product.image} alt={product.image} />
                         </div>
                         <div className="col-md-4">
                           <h4 className="product-name"><strong>{product.ProductName}</strong></h4><h4><small>{product.ProductDescription}</small></h4>
@@ -78,7 +80,7 @@ class Cart extends React.Component {
                               <h6><strong> {product.UnitPrice - product.Discount}&#36; <span className="text-muted">x</span></strong></h6>
                             </div>
                             <div className="col-md-4 col-sm-2">
-                              <input type="text" className="form-control input-sm" defaultValue="1" disabled/>
+                              <input type="text" className="form-control input-sm" defaultValue="1" disabled />
                             </div>
                             <div className="col-md-4 col-sm-2">
                               <Button
@@ -95,12 +97,36 @@ class Cart extends React.Component {
                 )}
                 {this.item ?
                   <div className="panel-footer">
+                    <div className="row">
+                      <div className="col-md-4 offset-2">
+                       <strong> Total :</strong>
+                      </div>
+                      <div className="col-md-4 offset-2">
+                        <strong>{total}&#36;</strong>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4 offset-2">
+                        <strong>Discount :</strong>
+                      </div>
+                      <div className="col-md-4 offset-2">
+                        <strong>{save}&#36;</strong>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4 offset-2">
+                        <strong>Delevery Charges :</strong>
+                      </div>
+                      <div className="col-md-4 offset-2">
+                        <strong>{total > 500 ? 'Free' : 50 } </strong>
+                      </div>
+                    </div>
                     <div className="row text-center">
                       <div className="col-md-9">
-                        <h4 className="text-right">Total <strong>{total} &#36;</strong></h4>
+                        <h4 className="text-right">Pay <strong>{total> 500 ?total-save : total -save +50 } &#36;</strong></h4>
                       </div>
                       <div className="col-md-3">
-                        <Button class="btn btn-success btn-block" name="Checkout" click={this.handleCheckout} />
+                        <Button class="btn btn-success btn-block" name="Place Order" click={this.handleCheckout} />
                       </div>
                     </div>
                   </div> :
