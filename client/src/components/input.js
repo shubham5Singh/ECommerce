@@ -8,6 +8,7 @@ export const Input = (props) =>{
     onChange={props.change} 
     id={props.id}
     defaultValue={props.defaultValue}
+    disabled={props.disable}
     />
   );
 }

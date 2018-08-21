@@ -36,41 +36,34 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+	console.log(req.body);
 	const order = {
 		OrderId: uuidv4(),
-		CustomerId: req.body.CustomerId,
-		OrderNumber: req.body.OrderNumber,
-		OrderDate: Date.now(),
-		Status: req.body.Status
+		CustomerId: req.body.address.customerId,	
+		OrderNumber: '',
+		OrderDate: new Date(),
+		Status: 'Not Delever'
 	};
-
-	sql.connect(config, err => {
-		if (err) {
-			res.status(500).json({
-				error: err
+	console.log(order);
+	sql.connect(config).then(() => {
+		return sql.query`INSERT INTO [Order] (OrderId,CustomerId,OrderNumber,OrderDate,Status) VALUES 
+                        (${order.OrderId},${order.CustomerId},${order.OrderNumber},${order.OrderDate},${order.Status})`;
+	}).then(result => {
+		sql.close();
+		if (result.rowsAffected > 0) {
+			res.status(201).json({
+				message: 'Row created for the category'
 			});
 		}
-		new sql.Request()
-			.input('OrderId', sql.NVarChar, order.ProductId)
-			.input('CustomerId', sql.NVarChar, order.CustomerId)
-			.input('OrderNumber', sql.NVarChar, order.OrderNumber)
-			.input('OrderDate', sql.Date, order.OrderDate)
-			.input('Status', sql.NVarChar, order.Status)
-			.execute('sp_InsertOrder', (err, result) => {
-				sql.close();
-				if (result.returnValue === 0) {
-					res.status(201).json({
-						message: 'success'
-					});
-				}
-				else {
-					res.status(500).json({
-						message: 'problem in executing sp'
-					});
-				}
+		else{
+			res.status(500).json({
+				message: 'something is not right'
 			});
+		}
 	});
+	
 	sql.on('error', err => {
+		sql.close();
 		res.status(500).json({
 			err: err
 		});

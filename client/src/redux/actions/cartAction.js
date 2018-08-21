@@ -1,5 +1,18 @@
 import axios from 'axios';
 
+export function order(_address,_orderDetails){
+  return (dispatch) =>{
+    axios.post('http://localhost:8080/orders',{
+      address:_address,
+      orderDetails:_orderDetails
+    }).then((response) =>{
+      console.log(response);
+    }).catch((err) =>{
+      console.log(err);
+    })
+  }
+}
+
 export function getUserDetail(customerId){
   return (dispatch) =>{
     axios.get('http://localhost:8080/users/'+customerId)
@@ -16,6 +29,10 @@ export function getUserDetail(customerId){
 
 export function addToCart(product) {
   return (dispatch) => {
+    product = {
+      ...product,
+      Quantity : 1
+    }
     dispatch({
       type: 'ADD_TO_CART',
       payload: product
