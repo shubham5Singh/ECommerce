@@ -77,7 +77,7 @@ class HeaderComponent extends React.Component {
                     {this.props.name}
                   </a>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href="#">Orders</a>
+                    <Link className="dropdown-item" to="/MyOrders">Orders</Link>
                     <a className="dropdown-item" href="#">Profile</a>
                     <a className="dropdown-item" href="#" onClick={this.props.handleLogout}>Log Out</a>
                   </div>

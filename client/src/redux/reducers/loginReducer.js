@@ -3,7 +3,8 @@ const loginReducer = (state = {
   email: '',
   password: '',
   customerId:'',
-  user:{}
+  user:{},
+  redirectUrl:''
 }, action) => {
   switch (action.type) {
     case 'SET_EMAIL':

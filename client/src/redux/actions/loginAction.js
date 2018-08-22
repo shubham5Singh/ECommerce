@@ -15,7 +15,13 @@ export function login(_email, _password,history) {
             payload: true,
             customerId: response.data.user.CustomerId
           });
-          history.push('/Home');
+          if(history.location.pathname==='/'){
+            history.push('/Home');
+          }
+          else{
+            history.push(history.location.pathname);
+          }
+          
         }
         else if (response.data.message === 'Invalid User') {
           dispatch({

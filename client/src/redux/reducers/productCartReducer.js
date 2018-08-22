@@ -4,6 +4,12 @@ const cartReducer = (state = {
   cartItems: []
 }, action) => {
   switch (action.type) {
+    case 'CLEAR_CART':
+    state ={
+      ...state,
+      cartItems:[]
+    };
+    break;
     case 'ADD_TO_CART':
       let index = 0;
       state.products.filter((product) => {

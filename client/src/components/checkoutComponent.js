@@ -89,7 +89,7 @@ export const CheckoutComponent = (props) => {
         </div>
         <Button  
         class="btn btn-primary" 
-        name="Next >>"
+        name="Checkout"
         click={props.submitAddress}
         />
       </form>

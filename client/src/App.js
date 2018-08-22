@@ -6,7 +6,7 @@ import ProductDescription from './containers/productDescription';
 import Checkout from './containers/checkout';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import MyOrder from './containers/myOrders';
 class App extends Component {
 	render() {
 		return (
@@ -17,6 +17,7 @@ class App extends Component {
 					<Route exact path='/Home' component={Home} />
 					<Route exact path='/Address' component={Checkout} />
 					<Route exact path='/ProductDeatil/:value' component={ProductDescription} />
+					<Route exact path='/MyOrders' component={MyOrder} />
 				</div>
 			</Router>
 		);

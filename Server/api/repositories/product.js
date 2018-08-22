@@ -3,11 +3,10 @@ const uuidv4 = require('uuid/v4');
 const config = require('../../sqlconfig');
 
 exports.getAllProduct = function (response) {
-	sql.close();
-	sql.connect(config).then(() => {
-		return sql.query`select * from Product`;
+	
+	new sql.ConnectionPool(config).connect().then(pool => {
+		return pool.query`select * from Product`;
 	}).then(result => {
-		sql.close();
 		if (result.rowsAffected > 0) {
 			response(null, result.recordset);
 		}
@@ -15,14 +14,9 @@ exports.getAllProduct = function (response) {
 			response(null, null);
 		}
 	}).catch(err => {
-		sql.close();
 		response(err, null);
 	});
-
-	sql.on('error', err => {
-		sql.close();
-		response(err, null);
-	});
+	sql.close();
 };
 
 exports.createProduct = function (req, response) {
@@ -72,11 +66,9 @@ exports.createProduct = function (req, response) {
 };
 
 exports.getProductDetail = function (id, response) {
-	sql.close();
-	sql.connect(config).then(() => {
-		return sql.query`select * from Product where ProductId = ${id}`;
+	new sql.ConnectionPool(config).connect().then(pool => {
+		return pool.query`select * from Product where ProductId = ${id}`;
 	}).then(result => {
-		sql.close();
 		if (result.rowsAffected > 0) {
 			response(null, result.recordset);
 		}
@@ -84,14 +76,9 @@ exports.getProductDetail = function (id, response) {
 			response(null, null);
 		}
 	}).catch(err => {
-		sql.close();
 		response(err, null);
 	});
-
-	sql.on('error', err => {
-		sql.close();
-		response(err,null);
-	});
+sql.close();
 };
 
 exports.updateProduct = function (productId, req, response) {

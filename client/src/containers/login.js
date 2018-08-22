@@ -24,7 +24,9 @@ class Login extends React.Component {
     });
   }
   componentDidMount() {
-    console.log('login', this.props.history.location.pathname);
+    if(this.props.login.redirectUrl!=''){
+      this.props.history.location.pathname = this.props.login.redirectUrl;
+    }
   }
   handlePasswordChange(e) {
     this.props.setPassword(e.target.value);

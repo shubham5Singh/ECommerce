@@ -21,7 +21,8 @@ class Cart extends React.Component {
 	}
 
 	handleRemoveItemCart(product) {
-		this.props.removeItemCart(product)
+		this.props.removeItemCart(product);
+		
 	}
 
 	handleCheckout() {
