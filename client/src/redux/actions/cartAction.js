@@ -1,5 +1,21 @@
 import axios from 'axios';
 import swal from 'sweetalert2';
+
+export function getOrderByCustomer(customerId){
+  return (dispatch) =>{
+    axios.get('http://localhost:8080/orders/ByCustomer/'+customerId)
+      .then(response =>{
+        if(response.status===200&&response.data.message!=='No record Found'){
+          dispatch({
+            type: 'MY_ORDER',
+            payload:response.data.data
+          });
+        }
+      }).catch(err =>{
+        console.log(err);
+      })
+  }
+}
 export function order(_address, _orderDetails, history) {
   return (dispatch) => {
     axios.post('http://localhost:8080/orders', {

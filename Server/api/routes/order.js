@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 const uuidv4 = require('uuid/v4');
-
 const config = require('../../sqlconfig');
 
-router.get('/', (req, res) => {
+router.get('/ByCustomer/:customerId', (req, res) => {
+	const id = req.params.customerId;
+	let response = [];
 	new sql.ConnectionPool(config).connect().then((pool) => {
-		return pool.query`select * from Order`;
+		return pool.query`SELECT [OrderDetail].[OrderId],[OrderDetail].[ProductId],[OrderDetail].[Quantity],[OrderDetail].[Price],
+														[OrderDetail].[Total],[OrderDetail].[Size],[OrderDetail].[Color],[OrderDetail].[image],
+														[OrderDetail].[ProductName],[OrderDetail].[ProductDescription],[Order].[OrderDate],[Order].[Status]  FROM [OrderDetail] JOIN [Order] ON [OrderDetail].[OrderId]=[Order].[OrderId]
+		WHERE [Order].[CustomerId] = ${id}`;
 	}).then(result => {
 		if (result.rowsAffected > 0) {
 			res.status(200).json({
@@ -15,7 +19,7 @@ router.get('/', (req, res) => {
 			});
 		}
 		else {
-			res.status(404).json({
+			res.status(200).json({
 				message: 'No record Found'
 			});
 		}
@@ -38,8 +42,8 @@ router.post('/', (req, res) => {
 	};
 	new sql.ConnectionPool(config).connect().then((pool) => {
 		products.forEach(element => {
-			pool.query`INSERT INTO [OrderDetail] (OrderId,ProductId,OrderNumber,Price,Quantity,Discount,Total,Size,Color) VALUES
-																			 (${order.OrderId},${element.ProductId},${order.OrderNumber},${element.UnitPrice},${element.Quantity},${element.Discount},${(element.UnitPrice - element.Discount) * element.Quantity},${element.AvailableSize},${element.Color})`
+			pool.query`INSERT INTO [OrderDetail] (OrderId,ProductId,OrderNumber,Price,Quantity,Discount,Total,Size,Color,image,ProductName,ProductDescription) VALUES
+																			 (${order.OrderId},${element.ProductId},${order.OrderNumber},${element.UnitPrice},${element.Quantity},${element.Discount},${(element.UnitPrice - element.Discount) * element.Quantity},${element.AvailableSize},${element.Color},${element.image},${element.ProductName},${element.ProductDescription})`
 		});
 		return pool.query`INSERT INTO [Order] (OrderId,CustomerId,OrderNumber,OrderDate,Status) VALUES 
 		(${order.OrderId},${order.CustomerId},${order.OrderNumber},${order.OrderDate},${order.Status})`;

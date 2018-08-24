@@ -42,7 +42,7 @@ class HeaderComponent extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
           <Link className="navbar-brand" to="/Home">E Commerce</Link>
           <form className="form-inline my-2 my-lg-0">
             <div className="dropdown">
@@ -62,10 +62,10 @@ class HeaderComponent extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/Home">Products</Link>
+                <Link className="navbar-brand" to="/Home">Products</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Cart">Cart
+                <Link className="navbar-brand" to="/Cart">Cart
                 <strong><sup>{this.props.items}</sup></strong>
                 </Link>
               </li>
@@ -73,7 +73,7 @@ class HeaderComponent extends React.Component {
             {this.props.isLogin ?
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a className="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.props.name}
                   </a>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -82,7 +82,7 @@ class HeaderComponent extends React.Component {
                     <a className="dropdown-item" href="#" onClick={this.props.handleLogout}>Log Out</a>
                   </div>
                 </li>
-              </ul> : <Link to="/">Log In</Link>}
+              </ul> : <Link to="/" className="navbar-brand">Log In</Link>}
           </div>
         </nav>
       </div>

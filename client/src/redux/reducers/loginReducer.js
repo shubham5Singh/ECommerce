@@ -2,9 +2,10 @@ const loginReducer = (state = {
   isLogin: false,
   email: '',
   password: '',
-  customerId:'',
-  user:{},
-  redirectUrl:''
+  customerId: '',
+  user: {},
+  redirectUrl: '',
+  myOrders: []
 }, action) => {
   switch (action.type) {
     case 'SET_EMAIL':
@@ -23,21 +24,28 @@ const loginReducer = (state = {
       state = {
         ...state,
         isLogin: action.payload,
-        customerId:action.customerId
+        customerId: action.customerId
       }
       break;
     case 'LOG_OUT':
-    state ={
-      ...state,
-      isLogin: action.payload,
-      customerId:''
-    }
-    break;
+      state = {
+        ...state,
+        isLogin: action.payload,
+        customerId: ''
+      }
+      break;
     case 'USER':
-    state ={
-      ...state,
-      user: action.payload
-    }
+      state = {
+        ...state,
+        user: action.payload
+      }
+      break;
+    case 'MY_ORDER':
+      state = {
+        ...state,
+        myOrders: action.payload
+      }
+      break;
     default:
       return state;
   }
