@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 export function login(_email, _password,history) {
@@ -8,7 +7,6 @@ export function login(_email, _password,history) {
       password: _password
     }).then((response) => {
       if (response.status === 200) {
-        console.log(response.data);
         if (response.data.message === 'Login Successful') {
           dispatch({
             type: 'LOG_IN',

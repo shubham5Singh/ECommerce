@@ -3,7 +3,7 @@ import {Input} from '../components/input';
 import {Button} from '../components/button';
 import './checkoutComponent.css';
 
-export const CheckoutComponent = (props) => {
+export const AddressComponent = (props) => {
   return (
     <div className="container">
       <div className="row"><strong><h2>Shipping Address</h2></strong></div>

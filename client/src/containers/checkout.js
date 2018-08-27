@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CheckoutComponent } from '../components/checkoutComponent';
+import { AddressComponent } from '../components/addressComponent';
 import { getUserDetail, order } from '../redux/actions/cartAction'
 import { withRouter } from 'react-router-dom';
 
@@ -22,15 +22,14 @@ class Checkout extends React.Component {
   }
   componentDidMount() {
     if (!this.props.login.isLogin) {
-      this.props.login.redirectUrl=this.props.location.pathname;
+      this.props.login.redirectUrl = this.props.location.pathname;
       this.props.history.push('/');
     }
     else {
-      //get the customer id and get the user details
       this.props.getUserDetail(this.props.login.customerId);
     }
   }
-
+  
   handleAddress(e) {
 
     this.address = {
@@ -71,7 +70,7 @@ class Checkout extends React.Component {
 
   render() {
     return (
-      <CheckoutComponent
+      <AddressComponent
         user={this.props.login.user}
         handleAddress={(e) => this.handleAddress(e)}
         handleCity={(e) => this.handleCity(e)}

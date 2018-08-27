@@ -1,6 +1,5 @@
 import React from 'react';
 import './products.css';
-import { Link } from 'react-router-dom';
 import { Button } from './button';
 export const Product = (props) => {
   return (

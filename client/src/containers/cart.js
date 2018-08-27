@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { removeItemCart } from '../redux/actions/cartAction';
 import { Button } from '../components/button';
 import { Input } from '../components/input';
-import { Link } from 'react-router-dom';
 
 import './cart.css';
 

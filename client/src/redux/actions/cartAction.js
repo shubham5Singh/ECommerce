@@ -57,6 +57,8 @@ export function getUserDetail(customerId) {
           payload: response.data.data
         })
       }).catch(err => {
+       
+      }).catch(err => {
         console.log('error', err);
       })
   }

@@ -24,29 +24,27 @@ exports.getUser = function (response) {
 	});
 };
 
-exports.logIn = function(req,resposne){
+exports.logIn = function (req, resposne) {
 	const credential = {
 		email: req.body.email,
 		password: req.body.password
 	};
-	sql.connect(config).then(() =>{
-		return sql.query`Select CustomerId from Customers where Email= ${credential.email} and Password= ${credential.password}`;
-	}).then(result =>{
-		sql.close();
-		if(result.rowsAffected>0){
-			resposne(null,result.recordset[0]);
+	new sql.ConnectionPool(config).connect().then(pool => {
+		return pool.query`Select CustomerId from Customers where Email= ${credential.email} and Password= ${credential.password}`;
+	}).then(result => {
+		if (result.rowsAffected > 0) {
+			resposne(null, result.recordset[0]);
 		}
-		else{
-			resposne(null,null);
+		else {
+			resposne(null, null);
 		}
-	}).catch(err =>{
-		sql.close();
-		resposne(err,null);
+	}).catch(err => {
+		resposne(err, null);
 	});
-
-	sql.on('error',err =>{
+	sql.close();
+	sql.on('error', err => {
 		sql.close();
-		resposne(err,null);
+		resposne(err, null);
 	});
 }
 
@@ -82,10 +80,9 @@ exports.postUser = function (req, response) {
 };
 
 exports.getUserById = function (id, response) {
-	sql.connect(config).then(() => {
-		return sql.query`select FirstName,LastName,Email,Phone from Customers where CustomerId = ${id}`;
+	new sql.ConnectionPool(config).connect().then(pool =>{
+		return pool.query`select FirstName,LastName,Email,Phone from Customers where CustomerId = ${id}`;
 	}).then(result => {
-		sql.close();
 		if (result.rowsAffected > 0) {
 			response(null, result.recordset[0]);
 		}
@@ -93,9 +90,9 @@ exports.getUserById = function (id, response) {
 			response(null, null);
 		}
 	}).catch(err => {
-		sql.close();
 		response(err, null);
 	});
+	sql.close();
 	sql.on('error', err => {
 		sql.close();
 		response(err, null);

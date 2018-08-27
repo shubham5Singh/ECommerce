@@ -4,10 +4,6 @@ import Header from '../containers/header';
 import { getOrderByCustomer } from '../redux/actions/cartAction';
 import { OrderComponent } from '../components/myOrder';
 class MyOrder extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     if (this.props.login.isLogin) {
       this.props.getOrders(this.props.login.customerId);

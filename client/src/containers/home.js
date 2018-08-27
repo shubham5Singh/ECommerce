@@ -13,6 +13,7 @@ class Home extends React.Component {
   }
   
   componentDidMount() {
+    console.log(window);
     if(this.props.cart.products.length===0){
       this.props.getProducts();
     }

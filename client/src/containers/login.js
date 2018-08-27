@@ -24,7 +24,7 @@ class Login extends React.Component {
     });
   }
   componentDidMount() {
-    if(this.props.login.redirectUrl!=''){
+    if(this.props.login.redirectUrl!==''){
       this.props.history.location.pathname = this.props.login.redirectUrl;
     }
   }
@@ -46,7 +46,7 @@ class Login extends React.Component {
     return (
       <div className="container login">
         <div className="row vertical-offset-100">
-          <div className="col-md-4 col-md-offset-4">
+          <div className="col-md-4 col-sm-6 col-md-offset-4">
             <div className="panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title">Please Log in</h3>

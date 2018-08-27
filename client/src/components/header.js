@@ -16,10 +16,9 @@ class HeaderComponent extends React.Component {
   productDescription(value) {
     this.props.products.filter((product) => {
       if (product.ProductName.toLowerCase().includes((value).toLowerCase())) {
-        this.props.history.push('/ProductDeatil/' + product.ProductId);
+       this.props.history.push('/ProductDeatil/' + product.ProductId);
       }
-    })
-
+    });
   }
 
   handleSearch(e) {
@@ -42,7 +41,7 @@ class HeaderComponent extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-md navbar-dark bg-primary">
           <Link className="navbar-brand" to="/Home">E Commerce</Link>
           <form className="form-inline my-2 my-lg-0">
             <div className="dropdown">
