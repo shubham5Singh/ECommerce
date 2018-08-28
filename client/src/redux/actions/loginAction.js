@@ -62,3 +62,20 @@ export function setPassword(password) {
     })
   }
 }
+
+export function registration(user,history){
+  console.log(user);
+  return (dispatch) =>{
+    axios.post('http://localhost:8080/users',user).then(response =>{
+     if(response.status===201){
+       dispatch({
+         type:'REGISTER',
+         payload:response.data.user
+       });
+       history.push('/Home');
+     }
+    }).catch(err =>{
+      console.log(err);
+    })
+  }
+}

@@ -55,8 +55,9 @@ exports.postUser = function (req, response) {
 		LastName: req.body.LastName,
 		Email: req.body.Email,
 		Password: req.body.Password,
-		Phone: req.body.Phone
+		Phone: Number(req.body.Phone)
 	};
+	console.log(user);
 	sql.connect(config).then(() => {
 		return sql.query`INSERT INTO Customers (CustomerId,FirstName,LastName,Email,Password,Phone) VALUES 
                         (${user.CustomerId},${user.FirstName},${user.LastName},${user.Email},
@@ -80,7 +81,7 @@ exports.postUser = function (req, response) {
 };
 
 exports.getUserById = function (id, response) {
-	new sql.ConnectionPool(config).connect().then(pool =>{
+	new sql.ConnectionPool(config).connect().then(pool => {
 		return pool.query`select FirstName,LastName,Email,Phone from Customers where CustomerId = ${id}`;
 	}).then(result => {
 		if (result.rowsAffected > 0) {

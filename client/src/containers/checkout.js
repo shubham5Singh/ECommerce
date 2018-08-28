@@ -26,10 +26,11 @@ class Checkout extends React.Component {
       this.props.history.push('/');
     }
     else {
+      this.props.login.redirectUrl = '';
       this.props.getUserDetail(this.props.login.customerId);
     }
   }
-  
+
   handleAddress(e) {
 
     this.address = {

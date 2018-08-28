@@ -46,6 +46,16 @@ const loginReducer = (state = {
         myOrders: action.payload
       }
       break;
+      case 'REGISTER':
+      state = {
+        ...state,
+        isLogin:true,
+        user:action.payload,
+        customerId:action.payload.CustomerId,
+        email:action.payload.Email,
+        password:action.payload.Password
+      }
+      break;
     default:
       return state;
   }

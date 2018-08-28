@@ -11,6 +11,9 @@ export const ProductView = (props) => {
               <img className="img-thumbnail" src={window.location.origin + '/images/' + props.product.image} alt={props.product.image} />
             </div>
             <div className="col-md-6">
+              <br />
+              <br />
+              <br />
               <h3><strong>{props.product.ProductName}</strong></h3>
               <p>{props.product.ProductDescription}</p>
               <h4><strong>Current price:</strong> <span className="price">&#36;{props.product.UnitPrice - props.product.Discount}</span></h4>

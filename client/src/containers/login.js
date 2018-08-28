@@ -14,9 +14,13 @@ class Login extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
     this.state = { signInClick: false };
   }
 
+  handleSignUp(){
+    this.props.history.push('/Registration');
+  }
   handleEmailChange(e) {
     this.props.setEmailValue(e.target.value);
     this.setState({
@@ -62,7 +66,7 @@ class Login extends React.Component {
                   <div className="login__error--message">{this.state.signInClick ? (this.props.login.islogin ? '' : '**Email or Password is wrong') : ''}</div>
                   <div className="row">
                     <div className="col-lg-2 col-sm-4"> <Button type="submit" class="btn btn-primary" name='Sign In' click={this.handleLogIn} /></div>
-                    <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' class="btn btn-primary" /></div>
+                    <div className="offset-1 col-lg-2 col-sm-4"> <Button name='Sign Up ' class="btn btn-primary" click={this.handleSignUp}/></div>
                   </div>
                 </form>
               </div>
