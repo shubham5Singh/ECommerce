@@ -21,13 +21,14 @@ class Checkout extends React.Component {
     };
   }
   componentDidMount() {
-    if (!this.props.login.isLogin) {
-      this.props.login.redirectUrl = this.props.location.pathname;
-      this.props.history.push('/');
-    }
-    else {
+    if (this.props.login.isLogin) {
       this.props.login.redirectUrl = '';
       this.props.getUserDetail(this.props.login.customerId);
+
+    }
+    else {
+      this.props.login.redirectUrl = this.props.location.pathname;
+      this.props.history.push('/');
     }
   }
 
